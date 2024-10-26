@@ -1,0 +1,103 @@
+## Requirements for SplitWise 
+
+* Functional Requirements 
+
+
+Sure thing! Let's break down the requirements for a Splitwise-like application into functional and non-functional aspects. This will help in ensuring that all core features are well-defined, along with the necessary performance and system attributes.
+
+**Functional Requirements:**
+
+1. **User Management:**
+   - User registration and login (via email, phone number, or social accounts).
+   - Profile management, including updating user information.
+   - Password reset functionality.
+
+2. **Friend and Group Management:**
+   - Ability to add, search, and manage friends.
+   - Create and manage groups for expenses (e.g., roommates, trip, etc.).
+   - Invite users to groups via email or mobile number.
+
+3. **Expense Management:**
+   - Create and manage expenses: Adding expenses, specifying payer(s), and splitting amounts between users.
+   - Support multiple split types: equal, percentage, share-based, or exact values.
+   - Assign categories to expenses (e.g., rent, groceries, travel).
+
+    4. **Debt Settlement:**
+   - Track balances between friends and group members.
+   - Settle debts (e.g., recording payments made outside the app).
+   - Suggest an optimal way to simplify and settle debts within a group.
+
+5. **Notifications and Reminders:**
+   - Send push notifications, SMS, or emails for activity like expense added, balance updates, or reminders.
+   - Notify users about due balances or upcoming settlements.
+
+6. **Expense History and Reports:**
+   - Provide an expense history for users and groups.
+   - Generate detailed expense reports (PDF/Excel) for groups or individuals.
+
+7. **Currency Support:**
+   - Support multiple currencies with live conversion rates.
+
+8. **Search and Filter:**
+   - Allow users to search and filter expenses based on date, category, groups, or participants.
+
+9. **Dashboard Overview:**
+   - Provide a dashboard summarizing balances, recent expenses, and group activity.
+
+10. **Privacy and Security:**
+    - Allow users to control who can see expenses (e.g., private or group visibility).
+    - Enable secure sharing of expense details.
+
+**Non-Functional Requirements:**(P, A, S, )
+
+1. **Performance:**
+   - The system should handle large groups of users without noticeable lag.
+   - Ensure quick response times (<2 seconds) for major actions like adding expenses or settling debts.
+
+2. **Scalability:**
+   - The application should be scalable to handle increasing user traffic and data growth, especially during peak activity periods.
+   - Use cloud-based services for scalability (e.g., AWS, Azure).
+
+3. **Availability:**
+   - The application should ensure high availability with minimal downtime (e.g., 99.9% uptime).
+   - Load balancing and redundancy should be implemented.
+
+4. **Reliability:**
+   - Ensure accurate calculations for splits, settlements, and balances without discrepancies.
+   - Data integrity must be maintained to prevent loss or corruption.
+
+5. **Security:** (Data Encryption, Decryption Techniques)
+   - Implement authentication (OAuth, multi-factor authentication) and authorization to ensure user data privacy.
+   - Use data encryption for sensitive information such as credentials.
+   - Regular audits and compliance with relevant data privacy regulations (GDPR, CCPA).
+
+6. **Usability:**
+   - Provide a simple, intuitive user interface that can be easily navigated by users of all levels of technical proficiency.
+   - Responsive design for seamless experience across different devices (desktop, mobile, tablet).
+
+7. **Compatibility:**
+   - The system should be compatible across popular platforms and browsers.
+   - Provide native mobile apps for Android and iOS.
+
+8. **Maintainability:**
+   - Modular codebase with clear documentation to facilitate future enhancements and bug fixes.
+   - Logging and monitoring to track performance and debug issues.
+
+9. **Extensibility:**
+   - The application should be built with extensibility in mind, allowing new features or third-party integrations to be added in the future.
+
+10. **Data Backup and Recovery:**
+    - Regular data backups and disaster recovery protocols should be in place to ensure user data safety in case of failure.
+
+11. **Localization:**
+    - The application should be able to support different languages based on user preference.
+
+12. **Legal and Compliance:**
+    - Ensure compliance with financial regulations related to handling money and settlements.
+    - Maintain terms of service, user agreements, and privacy policies for clarity.
+
+
+
+
+
+

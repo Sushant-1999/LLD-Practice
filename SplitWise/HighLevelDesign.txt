@@ -1,0 +1,61 @@
+
+Let's walk through both a high-level design (HLD) and a low-level design (LLD) for a Splitwise-like application. I'll provide an overview of the architecture, key components, and interactions to help visualize how the system works from both perspectives.
+
+High-Level Design (HLD)
+1. System Architecture:
+
+The system follows a distributed microservices-based architecture, utilizing RESTful APIs to manage different functionalities, such as User Management, Expense Management, and Notifications.
+Cloud Deployment: Deploy services on a cloud platform like AWS or Azure for scalability, with load balancers to handle user requests.
+Client-Server Model: Mobile and web clients communicate with backend servers through APIs.
+2. Core Components:
+
+Client-Side Applications:
+Web Application: Responsive web app developed using modern front-end frameworks like React, Angular, or Vue.js.
+Mobile Application: Native apps for iOS (Swift) and Android (Kotlin) or cross-platform using frameworks like Flutter or React Native.
+API Gateway:
+Acts as a single entry point for all client requests.
+Handles authentication, routing, and rate limiting.
+Microservices:
+User Management Service: Handles user registration, authentication (e.g., OAuth2), and profile management.
+Expense Management Service: Handles expense creation, modification, deletion, and split calculations.
+Group Management Service: Manages the creation and management of groups.
+Settlement Service: Tracks and manages settlements between users.
+Notification Service: Manages sending email/push notifications.
+Report Generation Service: Generates downloadable reports in different formats.
+Currency Conversion Service: Provides currency conversion for different expenses using third-party APIs.
+Database:
+
+SQL Database (e.g., PostgreSQL):
+Stores structured data like user information, groups, and expenses.
+NoSQL Database (e.g., MongoDB):
+Stores unstructured data, such as logs and notifications.
+Caching Layer:
+Redis: Caches frequently accessed data (e.g., user balances) to reduce database load and improve response time.
+Message Broker:
+RabbitMQ/Kafka: Facilitates communication between microservices for asynchronous operations like notifications and settlement processing.
+Authentication Service:
+Implements OAuth2 and JWT-based authentication for securing user data.
+External Integrations:
+Third-Party APIs: Integrate with email services (e.g., SendGrid) for email notifications and payment gateways for settlements.
+3. Key Interactions:
+
+Users log in via the Authentication Service.
+Clients interact with the API Gateway to make requests (e.g., add expense).
+The Expense Management Service validates and stores expense details, calculates splits, and communicates with other services.
+Notification Service sends reminders and notifications to users asynchronously.
+4. High-Level Data Flow:
+
+Expense Creation:
+User creates an expense → API Gateway → Expense Management Service → Database.
+Updates balances between users and generates notifications.
+Debt Settlement:
+User initiates settlement → Settlement Service processes and updates balances → Notification Service sends confirmation.
+5. Technology Stack:
+
+Frontend: React/Vue.js (Web), Flutter/React Native (Mobile)
+Backend: Golang or Node.js for microservices.
+Database: PostgreSQL for structured data, MongoDB for unstructured data.
+Cache: Redis
+Message Broker: RabbitMQ/Kafka
+Cloud Provider: AWS/Azure for deployment.
+Low-

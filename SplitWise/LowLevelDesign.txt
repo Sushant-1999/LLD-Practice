@@ -1,0 +1,104 @@
+Low-Level Design (LLD)
+1. Database Schema:
+
+User Table:
+UserID (Primary Key)
+Name
+Email
+PhoneNumber
+PasswordHash
+CurrencyPreference
+CreatedAt, UpdatedAt
+Group Table:
+GroupID (Primary Key)
+GroupName
+CreatedBy (Foreign Key referencing UserID)
+CreatedAt, UpdatedAt
+Expense Table:
+ExpenseID (Primary Key)
+GroupID (Foreign Key referencing GroupID)
+PaidBy (Foreign Key referencing UserID)
+Amount
+Currency
+Description
+Category
+CreatedAt, UpdatedAt
+Expense_Split Table:
+SplitID (Primary Key)
+ExpenseID (Foreign Key referencing ExpenseID)
+UserID (Foreign Key referencing UserID)
+ShareAmount
+Status (e.g., pending, settled)
+Friendship Table:
+UserID1 (Foreign Key referencing UserID)
+UserID2 (Foreign Key referencing UserID)
+Status (e.g., pending, accepted)
+Notification Table:
+NotificationID (Primary Key)
+UserID (Foreign Key referencing UserID)
+Message
+Status (e.g., unread, read)
+CreatedAt
+2. Detailed API Design:
+
+User Management APIs:
+POST /register: Register a new user.
+POST /login: Authenticate a user and provide a JWT token.
+PUT /user/{id}: Update user profile.
+Group Management APIs:
+POST /groups: Create a new group.
+GET /groups/{userId}: Fetch all groups for a user.
+PUT /groups/{groupId}: Update group details.
+Expense Management APIs:
+POST /expenses: Create a new expense for a group.
+GET /expenses/{groupId}: Fetch all expenses for a group.
+PUT /expenses/{expenseId}: Update an expense.
+DELETE /expenses/{expenseId}: Delete an expense.
+Settlement APIs:
+POST /settle: Settle an outstanding balance.
+GET /balance/{userId}: Fetch balance information for a user.
+Notification APIs:
+GET /notifications/{userId}: Fetch all notifications for a user.
+PUT /notifications/{notificationId}: Mark a notification as read.
+3. Expense Calculation Logic:
+
+When an expense is added, the Expense Management Service:
+Validates the input data (amount, payer, group members).
+Calculates how much each member owes based on the split type.
+Creates a record in the Expense Split table for each member.
+Updates the user's balances in the cache (using Redis).
+4. Interaction Sequence Example: Adding an Expense
+
+User Action: User adds an expense via the mobile app.
+API Gateway: Receives the request and forwards it to the Expense Management Service.
+Expense Management Service:
+Validates input.
+Saves expense data in the Expense and Expense Split tables.
+Updates user balances in Redis for quick access.
+Sends an event to the Notification Service through the Message Broker.
+Notification Service: Sends push notifications to other members.
+5. Settlement Logic:
+
+To simplify debt, the Settlement Service:
+Fetches the user's outstanding balances.
+Suggests a minimal number of transactions to settle the debts.
+Users can initiate payments via payment gateways or manual settlement.
+6. Error Handling and Retry Mechanism:
+
+API Gateway: Handles common errors like request validation.
+Expense Management Service: Handles logical errors like incorrect splits.
+Retry Logic: Failed database or notification writes are retried using a queue-based mechanism to avoid data loss.
+7. Caching Strategy:
+
+Frequently Accessed Data: User balances, recent expenses, and group details are cached in Redis.
+Invalidation: Cache is invalidated on write operations to ensure consistency.
+8. Security Considerations:
+
+JWT Tokens: Used for authenticating API requests.
+Role-Based Access Control (RBAC): Only authorized users can view or modify expenses.
+Encryption: Sensitive data, such as passwords, is hashed using strong encryption (e.g., bcrypt).
+9. Deployment Architecture:
+
+Kubernetes Cluster: All microservices are containerized and deployed using Docker and Kubernetes.
+CI/CD Pipeline: Automate testing, build, and deployment processes to ensure quick iteration and rollbacks.
+This high-level and low-level design provides a comprehensive overview of how a Splitwise-like application can be built to ensure scalability, performance, and ease of use. Let me know if you'd like to dive deeper into any part of the design or need help with a specific aspect of implementation.
